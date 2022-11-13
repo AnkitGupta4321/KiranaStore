@@ -8,7 +8,9 @@ import com.kiranastore.entity.User;
 public interface UserService {
 
     User createUser(User user);
-    User updateUser(Long id,User user);
-    String deleteUser(Long id);
-    String updatePassword(Long id, String password);
+    User updateUser(String email,User user);
+    String deleteUser(String email);
+    String updatePassword(String email, String password);
+
+    User getUser(String email);
 }

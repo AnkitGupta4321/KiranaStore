@@ -22,28 +22,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(Long id, User user) {
-        User user1 = userRepository.findById(id).get();
-        if(user.getFirstName() != null) user1.setFirstName(user.getFirstName());
-        if(user.getLastName() != null) user1.setLastName(user.getLastName());
-        if(user.getEmail() != null) user1.setEmail(user.getEmail());
-        if(user.getMobileNo() != null) user1.setMobileNo(user.getMobileNo());
-        user1.setLastUpdateDate(LocalDateTime.now());
-        return userRepository.save(user);
+    public User updateUser(String email, User user) {
+            User user1 = userRepository.findByEmail(email);
+
+            if(user.getFirstName() != null) user1.setFirstName(user.getFirstName());
+            if(user.getLastName() != null) user1.setLastName(user.getLastName());
+            if(user.getEmail() != null) user1.setEmail(user.getEmail());
+            if(user.getMobileNo() != null) user1.setMobileNo(user.getMobileNo());
+            user1.setLastUpdateDate(LocalDateTime.now());
+            return userRepository.save(user);
+
     }
 
     @Override
-    public String deleteUser(Long id) {
-         userRepository.deleteById(id);
+    public String deleteUser(String email) {
+         userRepository.deleteUserByEmail(email);
         return "User deleted";
     }
 
     @Override
-    public String updatePassword(Long id, String password) {
-        User user1 = userRepository.findById(id).get();
-        user1.setPassword(password);
-        user1.setLastUpdateDate(LocalDateTime.now());
-        userRepository.save(user1);
-        return "User Saved Successfully";
+    public String updatePassword(String email, String password) {
+
+           User user1 = userRepository.findByEmail(email);
+           user1.setPassword(password);
+           user1.setLastUpdateDate(LocalDateTime.now());
+           userRepository.save(user1);
+           return "User Saved Successfully";
+    }
+
+    @Override
+    public User getUser(String email) {
+        return userRepository.findByEmail(email);
     }
 }

@@ -5,12 +5,13 @@ import com.kiranastore.dto.UserDto;
 import com.kiranastore.dto.UserDto1;
 import com.kiranastore.entity.User;
 import com.kiranastore.services.UserService;
+import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/user")
@@ -21,6 +22,11 @@ public class UserContoller {
 
     @Autowired
     UserService userService;
+
+    @GetMapping("/test")
+    public ResponseEntity test(){
+        return new ResponseEntity<>("Running........", HttpStatus.CONTINUE);
+    }
 
     @PostMapping("/add")
     public ResponseEntity addUser(@RequestBody UserDto user){
